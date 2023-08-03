@@ -1,5 +1,11 @@
 import socket
 import threading
+import tkinter as tk
+
+root = tk.Tk()
+root.geometry("600x700")
+root.title("ikrokegb messenger")
+#root.resizable(False, False)
 
 HOST = '127.0.0.1'
 PORT = 1234
@@ -48,6 +54,9 @@ def client_handler(client):
 
 
 def main():
+
+    root.mainloop()
+
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)    #1 - IPv4    2 - TCP
 
     try:
