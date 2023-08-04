@@ -2,10 +2,36 @@ import socket
 import threading
 import tkinter as tk
 
+DARK_GREY = '#0d0e0f'
+MEDIUM_GREY = '#363a3a'
+LIGHT_PURPLE = '#f4d8ff'
+WHITE = 'white'
+FONT = ("Helvetica, 10")
+SMALL_FONT = ("Helvetica, 7")
+
 root = tk.Tk()
-root.geometry("600x700")
+root.geometry("600x600")
 root.title("ikrokegb messenger")
 #root.resizable(False, False)
+
+root.grid_rowconfigure(0, weight=1)
+root.grid_rowconfigure(1, weight=4)
+root.grid_rowconfigure(2, weight=1)
+
+top_frame = tk.Frame(root, width=600, height= 100, bg=DARK_GREY)
+top_frame.grid(row=0, column=0, sticky=tk.NSEW)
+
+middle_frame = tk.Frame(root, width=600, height= 400, bg=MEDIUM_GREY)
+middle_frame.grid(row=1, column=0, sticky=tk.NSEW)
+
+bottom_frame = tk.Frame(root, width=600, height= 100, bg=DARK_GREY)
+bottom_frame.grid(row=2, column=0, sticky=tk.NSEW)
+
+username_label = tk.Label(top_frame, text='Enter username: ', font=FONT, bg=DARK_GREY, fg=WHITE)
+username_label.pack(side=tk.LEFT, padx=10)
+
+username_textbox = tk.Entry(top_frame, font=FONT, bg=MEDIUM_GREY, fg=WHITE, width=20)
+username_textbox.pack(side=tk.LEFT)
 
 HOST = '127.0.0.1'
 PORT = 1234
