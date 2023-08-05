@@ -9,6 +9,9 @@ WHITE = 'white'
 FONT = ("Helvetica, 10")
 SMALL_FONT = ("Helvetica, 7")
 
+def connect():
+    print("Button is working")
+
 root = tk.Tk()
 root.geometry("600x600")
 root.title("ikrokegb messenger")
@@ -30,8 +33,11 @@ bottom_frame.grid(row=2, column=0, sticky=tk.NSEW)
 username_label = tk.Label(top_frame, text='Enter username: ', font=FONT, bg=DARK_GREY, fg=WHITE)
 username_label.pack(side=tk.LEFT, padx=10)
 
-username_textbox = tk.Entry(top_frame, font=FONT, bg=MEDIUM_GREY, fg=WHITE, width=20)
+username_textbox = tk.Entry(top_frame, font=FONT, bg=MEDIUM_GREY, fg=WHITE, width=26)
 username_textbox.pack(side=tk.LEFT)
+
+username_button = tk.Button(top_frame, text='Join', font=FONT, bg=DARK_GREY, fg=WHITE, command=connect)
+username_button.pack(side=tk.LEFT, padx=12)
 
 HOST = '127.0.0.1'
 PORT = 1234
