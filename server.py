@@ -1,16 +1,20 @@
 import socket
 import threading
 import tkinter as tk
+from tkinter import scrolledtext
 
 DARK_GREY = '#0d0e0f'
 MEDIUM_GREY = '#363a3a'
-LIGHT_PURPLE = '#f4d8ff'
+LIGHT_BLUE = '#7B68EE'
 WHITE = 'white'
 FONT = ("Helvetica, 10")
 SMALL_FONT = ("Helvetica, 7")
 
 def connect():
     print("Button is working")
+
+def send_message():
+    print("Sending message")
 
 root = tk.Tk()
 root.geometry("600x600")
@@ -38,6 +42,16 @@ username_textbox.pack(side=tk.LEFT)
 
 username_button = tk.Button(top_frame, text='Join', font=FONT, bg=DARK_GREY, fg=WHITE, command=connect)
 username_button.pack(side=tk.LEFT, padx=12)
+
+message_textbox = tk.Entry(bottom_frame, font=FONT, bg=MEDIUM_GREY, fg=WHITE, width=39)
+message_textbox.pack(side=tk.LEFT, padx=10)
+
+message_button = tk.Button(bottom_frame, text='Send', font=FONT, bg=LIGHT_BLUE, fg=WHITE, command=send_message)
+message_button.pack(side=tk.LEFT, padx=15)
+
+message_box = scrolledtext.ScrolledText(middle_frame, font=FONT, bg=MEDIUM_GREY, fg=WHITE, width=67, height=23)
+message_box.config(state=tk.DISABLED)
+message_box.pack(side=tk.TOP)
 
 HOST = '127.0.0.1'
 PORT = 1234
