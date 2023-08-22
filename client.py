@@ -5,14 +5,14 @@ import threading
 nickname = input('choose a nickname: ')
 
 
-client = socket.socket(socket.AF_NET, socket.SOCK_STREAM)
+client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect(('127.0.0.1', 12345))
 
 def receive():
     while 1:
         try:
             message = client.recv(1024).decode('ascii')
-            if message == 'POLLY':
+            if message == 'NICK':
                 client.send(nickname.encode('ascii'))
             else:
                 print(message)
