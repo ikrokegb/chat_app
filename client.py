@@ -11,6 +11,7 @@ client.connect(('127.0.0.1', 12345))
 
 stop_thread = False
 
+
 def receive():
     while 1:
         global stop_thread
@@ -22,9 +23,14 @@ def receive():
                 client.send(nickname.encode('ascii'))
                 next_message = client.recv(1024).decode('ascii')
                 if next_message == 'PASS':
-                    if client.send(password.encode('ascii')) == 'REFUSE':
+                    client.send(password.encode('ascii'))
+                    if client.recv(1024).decode('ascii') == 'REFUSE':
                         print("Connection was refused! Wrong password.")
                         stop_thread = True
+                elif next_message == 'BAN':
+                    print('Connection refused because of ban')
+                    client.close()
+                    stop_thread = True
             else:
                 print(message)
         except:
@@ -33,11 +39,22 @@ def receive():
             break
 
 
-
 def write():
     while 1:
+        if stop_thread:
+            break
         message = f'{nickname}: {input("")}'
-        client.send(message.encode('ascii'))
+        if message[len(nickname)+2:].startswith('/'):
+            if nickname == 'admin':
+                if message[len(nickname)+2:].startswith('/kick'):
+                    client.send(f'KICK {message[len(nickname)+2+6:]}'.encode('ascii'))
+                elif message[len(nickname)+2:].startswith('/ban'):
+                    client.send(f'BAN {message[len(nickname)+2+5:]}'.encode('ascii'))
+            else:
+                print("Commands can only be executed by admin!")
+        else:
+            client.send(message.encode('ascii'))
+
 
 receive_thread = threading.Thread(target=receive)
 receive_thread.start()
